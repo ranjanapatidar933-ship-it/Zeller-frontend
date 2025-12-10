@@ -1,96 +1,55 @@
-
 Zeller Customers project is react + typeScript based application where customer data is fetch from an AWS AppSync GraphQL API and displays customers based on their user role .
 
 
- approach and setup -
-* fetching customer using graphQL .
-* there is radio toogle by which we can switch between admin and manager role
-* used useMemo for optizing performance 
+<!-- Approach & Setup -->
+1. UI Layer
 
-*setup*
-create project with - npm create vite@latest zeller-customer
-and also npm install aws-amplify and npm install @aws-amplify/api
-npm install @aws-amplify/core
+The UI is composed of a single reusable component, CustomerUI, responsible for:
+- Displaying user types (Admin / Manager)
+- Allowing the user to switch roles
+- Showing filtered customer lists
 
-
-
-
-
+2. Data Layer
+The useCustomers custom hook manages:
+- GraphQL API retrieval
+- Normalizing data (lower-casing roles to keep matching consistent)
 
 
-<!-- # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+3. API Layer
+The graphqlClient handles all communication with AWS AppSync.
+It is responsible for:
+- Configuring Amplify at startup
+- Creating a GraphQL client with authMode: "apiKey"
+- Executing queries
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+<!-- Setup & Installation -->
+Step 1 - npm install 
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Step 2 — Add environment variables - Create a .env
+ - VITE_APPSYNC_API_KEY=appsync-api-key
+  VITE_APPSYNC_ENDPOINT=https://prrwjjssnvhpbcdwbcwx3nm3zm.appsync-api.ap-southeast-2.amazonaws.com/graphql
+  VITE_APPSYNC_REGION=ap-southeast-2
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Step 3 — Configure AWS Amplify -
+export default {
+  aws_appsync_graphqlEndpoint: import.meta.env.VITE_APPSYNC_ENDPOINT,
+  aws_appsync_region: import.meta.env.VITE_APPSYNC_REGION,
+  aws_appsync_authenticationType: "API_KEY",
+  aws_appsync_apiKey: import.meta.env.VITE_APPSYNC_API_KEY,
+};
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Step 4 — Run the project - npm run dev
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+ <!-- UI  screenshot-->
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+![alt text](image.png)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-``` -->
 
 
 
