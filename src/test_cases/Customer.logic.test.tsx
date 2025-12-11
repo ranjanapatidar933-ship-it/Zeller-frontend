@@ -21,9 +21,9 @@ describe("CustomerContainer Component", () => {
       loading: true,
     });
 
-    render(<CustomerContainer />);
+    const { container } = render(<CustomerContainer />);
 
-    expect(screen.getByText(/loading/i)).toBeInTheDocument();
+    expect(container.querySelector('.animate-spin')).toBeInTheDocument();
   });
 
   it("renders filtered admin users", () => {

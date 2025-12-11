@@ -3,12 +3,7 @@ import { ROLE_OPTIONS, type Customer, type CustomerRole } from "../types/custome
 function Loader() {
   return (
     <div className="flex justify-center items-center py-4">
-      <div
-        className="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"
-        role="status"
-        aria-label="loading"
-      />
-      <span className="ml-3 text-gray-500">Loading...</span>
+        <div className="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
     </div>
   );
 }

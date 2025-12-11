@@ -59,14 +59,15 @@ it("renders radio buttons for Admin and Manager", () => {
   });
 
   it("shows loading state", () => {
-    setup({
+    const { container } = setup({
       role: ROLE_OPTIONS.ADMIN,
       setRole: vi.fn(),
       users: [],
       loading: true,
     });
 
-    expect(screen.getByText("Loading...")).toBeInTheDocument();
+   
+    expect(container.querySelector('.animate-spin')).toBeInTheDocument();
   });
 
   it("shows 'No users found' when list is empty", () => {
